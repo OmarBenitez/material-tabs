@@ -1,0 +1,221 @@
+/* Created on : 19/01/2016, 01:22:12 PM */
+/* Author     : Omar Benitez*/
+/* Version    : 1.0 */
+
+$mt-background-header: rgba(255,255,255,0);
+$mt-highlight: #303942;
+$mt-text-color: #9e9e9e;
+
+$num-of-tabs: 4;
+
+@mixin tabs {
+    @for $i from 1 through $num-of-tabs {
+        &:nth-of-type(#{$i}) {
+            &:checked {
+                ~ .slide {
+                    left: calc((100% / #{$num-of-tabs}) * #{$i - 1});
+                }
+            }
+        }
+    }
+}
+
+@mixin contents {
+    @for $j from 1 through $num-of-tabs {
+        .for-tab-#{$j} {
+            left: calc((-100% * #{$j - 1}));
+        }
+    }
+}
+
+.material-tabs {
+
+    label, p, a, h1, div {
+        font-family: Roboto, sans-serif;
+    }
+
+    .tab-wrap {
+        position: relative;
+        display: flex;
+        @include contents;
+    }
+
+    input[type="radio"][name="tabs"] {
+        position: absolute;
+        z-index: -1;
+        &:checked {
+            + .tab-label-content {
+                label {
+                    color: $mt-highlight;
+                }
+                .tab-content {
+                    display: block;
+                }
+            }
+        }
+        @include tabs;
+        &:first-of-type {
+            &:checked {
+                ~ .slide {
+                    left: 0;
+                }
+            }
+        }
+    }
+
+    label {
+        cursor: pointer;
+        font-weight:200;
+        font-size:1.3em;
+        color: $mt-text-color;
+        background-color: $mt-background-header;
+        box-sizing: border-box;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        height: 56px;
+        transition: color 0.2s ease;
+        width: 100%;
+    }
+
+    .slide {
+        background: $mt-highlight;
+        width: calc(100% / #{$num-of-tabs});
+        height: 4px;
+        position: absolute;
+        left: 0;
+        top: 50px;
+        transition: left 0.3s ease-out;
+    }
+
+    .tab-label-content {
+        width: 100%;
+        .tab-content {
+            position: relative;
+            width: calc(100% * #{$num-of-tabs});
+            line-height: 130%;
+            display: none;
+        }
+    }
+
+    @media screen and (max-width: 800px) {
+        h1 {
+            padding: 40px 0 90px 10%;
+        }
+        .tab-wrap {
+            width: 80%;
+            margin-left: 10%;
+            top: -106px;
+        }
+    }
+}
+
+@for $n from 2 through 8 {
+    
+    $num-of-tabs: $n;
+
+    @mixin tabs {
+        @for $i from 1 through $num-of-tabs {
+            &:nth-of-type(#{$i}) {
+                &:checked {
+                    ~ .slide {
+                        left: calc((100% / #{$num-of-tabs}) * #{$i - 1});
+                    }
+                }
+            }
+        }
+    }
+
+    @mixin contents {
+        @for $j from 1 through $num-of-tabs {
+            .for-tab-#{$j} {
+                left: calc((-100% * #{$j - 1}));
+            }
+        }
+    }
+
+    .material-tabs[data-tabs-number='#{$n}'] {
+
+        label, p, a, h1, div {
+            font-family: Roboto, sans-serif;
+        }
+
+        .tab-wrap {
+            position: relative;
+            display: flex;
+            @include contents;
+        }
+
+        input[type="radio"][name="tabs"] {
+            position: absolute;
+            z-index: -1;
+            &:checked {
+                + .tab-label-content {
+                    label {
+                        color: $mt-highlight;
+                    }
+                    .tab-content {
+                        display: block;
+                    }
+                }
+            }
+            @include tabs;
+            &:first-of-type {
+                &:checked {
+                    ~ .slide {
+                        left: 0;
+                    }
+                }
+            }
+        }
+
+        label {
+            cursor: pointer;
+            font-weight:200;
+            font-size:1.3em;
+            color: $mt-text-color;
+            background-color: $mt-background-header;
+            box-sizing: border-box;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 56px;
+            transition: color 0.2s ease;
+            width: 100%;
+        }
+
+        .slide {
+            background: $mt-highlight;
+            width: calc(100% / #{$num-of-tabs});
+            height: 4px;
+            position: absolute;
+            left: 0;
+            top: 50px;
+            transition: left 0.3s ease-out;
+        }
+
+        .tab-label-content {
+            width: 100%;
+            .tab-content {
+                position: relative;
+                width: calc(100% * #{$num-of-tabs});
+                line-height: 130%;
+                display: none;
+            }
+        }
+
+        @media screen and (max-width: 800px) {
+            h1 {
+                padding: 40px 0 90px 10%;
+            }
+            .tab-wrap {
+                width: 80%;
+                margin-left: 10%;
+                top: -106px;
+            }
+        }
+    }
+    
+}
